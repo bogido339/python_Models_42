@@ -1,4 +1,4 @@
-from ex0.Card import Card
+from ex0.Card import Card, Rarity
 from ex2.EliteCard import EliteCard
 import random
 
@@ -6,19 +6,31 @@ import random
 def main() -> None:
     print("=== DataDeck Ability System ===\n")
 
-    Elitecard = EliteCard()
+    elitecard = EliteCard(
+        "Arcane Warrior", 30, Rarity.LEGENDARY.value, "melee")
 
-    # card_methods = [method for method in dir(Card) if not method.startswith('_')]
+    card_methods = [
+        method for method in dir(Elitecard) if not method.startswith('_')]
+    print(card_methods)
 
-    # print("EliteCard capabilities:")
-    # print(f"- Card: {card_methods}")
-    # print(f"- ")
-    # print(f"- ")
+    game_state = {
+        "available_mana": 50,
+        "targets": ["Enemy"],
+        "action": "attack"
+    }
+    print(f"Attack result: {elitecard.play(game_state)}")
+    print(f"Defense result: {elitecard.defend(2)}")
 
+    game_state = {
+        "available_mana": 50,
+        "targets": ["Enemy"],
+        "action": "spell"
+    }
+    print(f"Attack result: {elitecard.play(game_state)}")
+    print(f"Defense result: {elitecard.channel_mana(2)}")
 
-    print("Playing Arcane Warrior (Elite Card):")
+    print("Multiple interface implementation successful!")
 
-    
 
 if __name__ == "__main__":
     try:
