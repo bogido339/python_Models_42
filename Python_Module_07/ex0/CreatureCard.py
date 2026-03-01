@@ -3,7 +3,9 @@ from ex0.Card import Card
 
 
 class CreatureCard(Card):
-    def __init__(self, name: str, cost: int, rarity: str, attack: int, health: int):
+    def __init__(
+        self, name: str, cost: int, rarity: str, attack: int, health: int
+    ):
         super().__init__(name, cost, rarity)
 
         if not isinstance(attack, int) or attack <= 0:
