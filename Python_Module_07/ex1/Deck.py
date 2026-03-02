@@ -29,16 +29,31 @@ class Deck:
             raise ValueError("not card to drawing")
 
     def get_deck_stats(self) -> dict:
-        d = {}
-        d.update({"total_cards": len(self.cards)})
+        total = len(self.cards)
+        d = {
+            "total_cards": total,
+            "spells": 0,
+            "artifacts": 0,
+            "creatures": 0,
+            "avg_cost": 0.0
+        }
 
         total_cost = 0
         for card in self.cards:
-            key = type(card).__name__
-            d.update({key: d.get(key, 0) + 1})
+            name = type(card).__name__
+            if name == "SpellCard":
+                d["spells"] += 1
+            elif name == "ArtifactCard":
+                d["artifacts"] += 1
+            elif name == "CreatureCard":
+                d["creatures"] += 1
             total_cost += card.cost
-        if d.get("total_cards", 0) > 0:
-            d.update({"avg_cost": float(total_cost / d.get("total_cards"))})
-        else:
-            d.update({"avg_cost": 0})
-        return d
+
+        if total > 0:
+            d["avg_cost"] = total_cost / total
+
+        return {
+            k: v
+            for k, v in d.items()
+            if v > 0 or k in ["total_cards", "avg_cost"]
+        }

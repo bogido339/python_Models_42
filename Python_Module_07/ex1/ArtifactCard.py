@@ -5,9 +5,7 @@ class ArtifactCard(Card):
     def __init__(
         self, name: str, cost: int, rarity: str, durability: int, effect: str
     ):
-        self.name = name
-        self.cost = cost
-        self.rarity = rarity
+        super().__init__(name, cost, rarity)
         self.durability = durability
         self.effect = effect
 
@@ -30,7 +28,7 @@ class ArtifactCard(Card):
             return {
                 "artifact_name": self.name,
                 "status": "destroyed",
-                "message": "This artifact has no durability left."
+                "message": "This artifact has no durability left"
             }
 
         self.durability -= 1

@@ -19,13 +19,11 @@ class AggressiveStrategy(GameStrategy):
         return prioritized
 
     def execute_turn(self, hand: list, battlefield: list) -> dict:
-
         sorted_hand = sorted(hand, key=lambda card: getattr(card, 'cost', 99))
 
         cards_played = []
         mana_used = 0
         damage_dealt = 0
-
         available_mana = 5
 
         for card in sorted_hand:
@@ -44,10 +42,11 @@ class AggressiveStrategy(GameStrategy):
                 else:
                     damage_dealt += 2
 
-        targets = self.prioritize_targets(["Enemy Player", "Enemy Guard"])
+        targets = self.prioritize_targets(battlefield)
 
         return {
             'cards_played': cards_played,
             'mana_used': mana_used,
-            'targets_attacked': [targets[0]],
+            'targets_attacked': [targets[0]] if targets else [],
+            'damage_dealt': damage_dealt
         }

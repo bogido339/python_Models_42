@@ -4,15 +4,12 @@ from ex4.Rankable import Rankable
 
 
 class TournamentCard(Card, Combatable, Rankable):
-
     def __init__(
-        self, name: str, cost: int, rarity: str, base_rating: int = 1200
+        self, name: str, cost: int, rarity: str, base_rating: int = 1000
     ):
         super().__init__(name, cost, rarity)
-
         self.attack_power = cost * 2
         self.health = cost * 2
-
         self.rating = base_rating
         self.wins = 0
         self.losses = 0
@@ -33,16 +30,14 @@ class TournamentCard(Card, Combatable, Rankable):
         target_name = getattr(target, 'name', 'Enemy')
         return {
             'attacker': self.name,
-            'target': target_name,
-            'damage': self.attack_power
+            'target': target_name, 'damage': self.attack_power
         }
 
     def defend(self, incoming_damage: int) -> dict:
         self.health -= incoming_damage
         return {
             'defender': self.name,
-            'damage_taken': incoming_damage,
-            'still_alive': self.health > 0
+            'damage_taken': incoming_damage, 'still_alive': self.health > 0
         }
 
     def get_combat_stats(self) -> dict:
@@ -65,7 +60,4 @@ class TournamentCard(Card, Combatable, Rankable):
 
     def get_tournament_stats(self) -> dict:
         return {
-            'wins': self.wins,
-            'losses': self.losses,
-            'rating': self.rating
-        }
+            'wins': self.wins, 'losses': self.losses, 'rating': self.rating}

@@ -8,7 +8,7 @@ def main():
 
     rarity = Rarity
 
-    fire_dragon = CreatureCard("Fire Dragon", 5, rarity.COMMON, 7, 5)
+    fire_dragon = CreatureCard("Fire Dragon", 5, rarity.COMMON.value, 7, 5)
 
     print("\nCreatureCard Info:")
     print(fire_dragon.get_card_info())
@@ -30,4 +30,4 @@ if __name__ == "__main__":
     try:
         main()
     except Exception as e:
-        print(f"ERROR: {e}")
+        print(e)

@@ -3,7 +3,6 @@ from ex3.GameStrategy import GameStrategy
 
 
 class GameEngine:
-
     def __init__(self):
         self.factory = None
         self.strategy = None
@@ -19,19 +18,20 @@ class GameEngine:
         if not self.factory or not self.strategy:
             raise ValueError("Engine not configured")
 
-        deck = self.factory.create_themed_deck()
+        hand = [
+            self.factory.create_creature("Fire Dragon"),
+            self.factory.create_creature("Goblin Warrior"),
+            self.factory.create_spell("Lightning Bolt")
+        ]
+        battlefield = ["Enemy Player"]
 
-        game_state = {
-            "deck": deck, "enemy_targets": ["Enemy Player"], "turn": 1}
-
-        decision = self.strategy.execute_turn(game_state)
+        decision = self.strategy.execute_turn(hand, battlefield)
 
         self.last_result = {
             "strategy": self.strategy.get_strategy_name(),
             "decision": decision,
-            "turn": game_state["turn"]
+            "turn": 1
         }
-
         return self.last_result
 
     def get_engine_status(self) -> dict:

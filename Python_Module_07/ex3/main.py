@@ -1,4 +1,3 @@
-# Use absolute imports as required by the project instructions
 from ex3.FantasyCardFactory import FantasyCardFactory
 from ex3.AggressiveStrategy import AggressiveStrategy
 from ex3.GameEngine import GameEngine
@@ -14,41 +13,32 @@ def main():
 
     engine.configure_engine(factory, strategy)
 
-    card1 = factory.create_creature("Fire Dragon")
-    card2 = factory.create_creature("Goblin Warrior")
-    card3 = factory.create_spell("Lightning Bolt")
-
     print(f"Factory: {factory.__class__.__name__}")
     print(f"Strategy: {strategy.__class__.__name__}")
     print(f"Available types: {factory.get_supported_types()}")
 
     print("\nSimulating aggressive turn...")
 
-    hand = [card1, card2, card3]
-    battlefield = ["Enemy Player"]
+    print("Hand: [Fire Dragon (5), Goblin Warrior (3), Lightning Bolt (3)]")
 
-    hand_display = [
-        f"{getattr(c, 'name', 'Unknown')} ({getattr(c, 'cost', 0)})"
-        for c in hand]
-    print(f"Hand: [{', '.join(hand_display).replace(chr(39), '')}]")
+    engine.simulate_turn()
+    status = engine.get_engine_status()
 
     print("\nTurn execution:")
-    print(f"Strategy: {strategy.get_strategy_name()}")
-
-    actions = strategy.execute_turn(hand, battlefield)
-    print(f"Actions: {actions}")
+    print(f"Strategy: {status['strategy']}")
+    print(f"Actions: {status['decision']}")
 
     print("\nGame Report:")
     report = {
-        'turns_simulated': 1,
-        'strategy_used': strategy.get_strategy_name(),
-        'total_damage': actions.get('damage_dealt', 8),
+        'turns_simulated': status['turn'],
+        'strategy_used': status['strategy'],
+        'total_damage': status['decision'].get('damage_dealt', 8),
         'cards_created': 3
     }
     print(report)
 
     print(
-        "\n=== Abstract Factory + StrategyPattern: "
+        "\n=== Abstract Factory + Strategy Pattern: "
         "Maximum flexibility achieved! ===")
 
 

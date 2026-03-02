@@ -1,12 +1,18 @@
 from ex2.EliteCard import EliteCard
+from ex0.Card import Card
+from ex2.Combatable import Combatable
+from ex2.Magical import Magical
 
 
 def main():
     print("=== DataDeck Ability System ===")
     print("EliteCard capabilities:")
-    print("- Card: ['play', 'get_card_info', 'is_playable']")
-    print("- Combatable: ['attack', 'defend', 'get_combat_stats']")
-    print("- Magical: ['cast_spell', 'channel_mana', 'get_magic_stats']")
+    for base_class in [Card, Combatable, Magical]:
+        methods = [
+            m for m in dir(base_class)
+            if callable(getattr(base_class, m)) and not m.startswith('_')
+        ]
+        print(f"- {base_class.__name__}: {methods}")
 
     print("\nPlaying Arcane Warrior (Elite Card):")
     arcane_warrior = EliteCard("Arcane Warrior", 6, "Legendary", 5, 3, 4)

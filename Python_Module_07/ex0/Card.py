@@ -24,9 +24,7 @@ class Card(ABC):
         return {
             "name": self.name,
             "cost": self.cost,
-            "rarity": (
-                self.rarity.value
-                if isinstance(self.rarity, Enum) else self.rarity())
+            "rarity": self.rarity
         }
 
     def is_playable(self, available_mana: int) -> bool:
